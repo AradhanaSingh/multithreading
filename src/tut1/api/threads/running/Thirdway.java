@@ -2,27 +2,29 @@ package tut1.api.threads.running;
 
 import java.util.concurrent.TimeUnit;
 
-
-// Starting the thread from outside rather than constructor of thread cum task definition.
-// This gives more control to the calling code as to when start the thread.
-
-
-public class SecondWay {
+public class Thirdway {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Main thread starts here");
 		// first thread
-		new SecondTask().start();
+		new ThirdTask();
 		// second thread
-		Thread t = new SecondTask();
-		t.start();
+		new ThirdTask();
 		System.out.println("Main thread ends here");
+		
+
 	}
+	
+			
 
 }
-class SecondTask extends Thread
+
+// implements Runnable, so doesn't have start() method
+// have separated thread from task
+// Only a task definition
+class ThirdTask implements Runnable
 {
 	private static int count=0;
 	private int id ;
@@ -42,10 +44,11 @@ class SecondTask extends Thread
 		}
 	}
 	
-	
-	public SecondTask()
+	public ThirdTask()
 	{
 		this.id=++count;
+		// using overloaded constructor of Thread class 
+		new Thread(this).start();
+		
 	}
-
 }
