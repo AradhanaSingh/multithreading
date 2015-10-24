@@ -17,12 +17,15 @@ public class FirstWay {
 }
 class FirstTask extends Thread
 {
+	private static int count=0;
+	private int id ;
+	
 	@Override
 	public void run()
 	{
 		for(int i =10;i>0; i--)
 		{
-			System.out.println("TICK TICK" + i);
+			System.out.println("<"+ id +"TICK TICK" + i);
 			try {
 				TimeUnit.MILLISECONDS.sleep(200);
 			} catch (InterruptedException e) {
@@ -34,6 +37,7 @@ class FirstTask extends Thread
 	
 	public FirstTask()
 	{
+		this.id=++count;
 		this.start();
 		
 	}
