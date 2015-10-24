@@ -2,6 +2,9 @@ package tut1.api.threads.running;
 
 import java.util.concurrent.TimeUnit;
 
+//cannot guarantee order of execution
+// main class might end after starting both threads 
+
 public class FirstWay {
 
 	public static void main(String args[])
