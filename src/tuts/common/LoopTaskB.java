@@ -10,6 +10,8 @@ public class LoopTaskB implements Runnable {
 	@Override
 	public void run()
 	{
+		// adding custom name to the threads
+		Thread.currentThread().setName("Ammazing - Thread-" + instanceNumber);
 		// getting the instance of the current thread to get the thread name
 		String currentThreadName = Thread.currentThread().getName();
         System.out.println("##### ["+ currentThreadName +"<TASK- "+ taskId +"> STARTING #######" );
@@ -29,7 +31,7 @@ public class LoopTaskB implements Runnable {
 		public LoopTaskB()
 		{
 			this.instanceNumber=++count;
-			this.taskId = "LoopTaskB" + taskId;
+			this.taskId = "LoopTaskB" + instanceNumber;
 		}
 	
 }
