@@ -16,9 +16,12 @@ public class UsingFixedThreadPool {
 		ExecutorService execService = Executors.newFixedThreadPool(3);
 		
 		// context switching happens in the background
+		// any task and any number of tasks can be added
 		execService.execute(new LoopTaskA());
 		execService.execute(new LoopTaskA());
-		
+		execService.execute(new LoopTaskA());
+		// more tasks are added, but  number of loop concurrently running doesn't exceed 3
+		execService.execute(new LoopTaskA());
 		execService.execute(new LoopTaskA());
 		
 		// need to call the shutdown service, otherwise it's going to call memory leak in the application
