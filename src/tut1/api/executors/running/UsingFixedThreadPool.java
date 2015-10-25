@@ -18,7 +18,11 @@ public class UsingFixedThreadPool {
 		// context switching happens in the background
 		execService.execute(new LoopTaskA());
 		execService.execute(new LoopTaskA());
+		
 		execService.execute(new LoopTaskA());
+		
+		// need to call the shutdown service, otherwise it's going to call memory leak in the application
+		execService.shutdown();
 		
 		System.out.println("Main thread ends here...");
 
