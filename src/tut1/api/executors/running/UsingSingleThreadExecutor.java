@@ -11,7 +11,7 @@ public class UsingSingleThreadExecutor {
 		// TODO Auto-generated method stub
 		System.out.println("Main thread starts here..");
 		
-		//creating thread pool executor service
+		//tasks gets executed sequentially, only one task at a time
 		ExecutorService execService = Executors.newSingleThreadExecutor();
 		
 		// context switching happens in the background
