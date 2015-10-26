@@ -4,6 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import tuts.common.LoopTaskC;
+import tuts.common.NamedThreadsFactory;
 
 public class NamingExecutorThreads {
 
@@ -11,7 +12,9 @@ public class NamingExecutorThreads {
 		// TODO Auto-generated method stub
 		String currentThreadName = Thread.currentThread().getName();
 		System.out.println("[ "+ currentThreadName + "] " +"Main thread starts here...");
-		ExecutorService execService = Executors.newCachedThreadPool();
+		// providing an instance of this factory to the executor
+		// this factory names the thread
+		ExecutorService execService = Executors.newCachedThreadPool( new NamedThreadsFactory());
 		execService.execute(new LoopTaskC());
 		execService.execute(new LoopTaskC());
 		execService.execute(new LoopTaskC());
