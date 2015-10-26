@@ -13,6 +13,10 @@ public class ValueReturningTaskA implements Runnable {
 	private int instanceNumber;
 	private String taskId;
 	
+	// volatile so that it's values are read accurately from reader threads
+	// after task is done value of done boolean variable should be set to True
+	private volatile boolean done = false;
+	
 	public ValueReturningTaskA(int a, int b, long sleepTime)
 	{
 		this.a=a;
@@ -40,11 +44,33 @@ public class ValueReturningTaskA implements Runnable {
 		}
 		sum = a + b;
 		System.out.println("***** [ "+ currentThreadName + "] < "+ taskId + "> Done executing");
-
+		done = true;
+		// it should be synchronized on the same object
+		synchronized(this)
+		{
+			System.out.println("[ "+ currentThreadName + " ] "+ taskId+ "> NOTIFYING ......");
+			this.notifyAll();
+		}
 	}
 	
 	public int getSum()
 	{
+		if (!done){
+			synchronized(this)
+			{
+				try {
+					System.out.println("[" + Thread.currentThread().getName()+ "]  ===== WAITING for result from " + taskId + "... ####");
+					// if this task is waiting, then some other thread should also notify
+					this.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		// print statement when a caller thread wakes up
+		System.out.println("[ " + Thread.currentThread().getName()+ "] === WOKEN-UP for "+ taskId + "... ####");
+		
 		return sum;
 	}
 
